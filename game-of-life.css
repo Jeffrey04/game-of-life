@@ -1,0 +1,135 @@
+body {
+    font-size: 14pt;
+    font-family: Helvetica, Verdana, "Bitstream Vera Sans", "Hiragino Sans GB", "LiHei Pro", STHeiti, "Microsoft YaHei", SimHei, "WenQuanYi Micro Hei", Sans-serif;
+    float: left;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    color: #111;
+}
+
+a:link, a:active {
+    text-decoration: none;
+    color: #0099FF;
+}
+
+a:visited {
+    color: #0066FF;
+}
+
+#container {
+    float: left;
+    width: 100%;
+}
+
+#header {
+    float: left;
+    width: 100%;
+    background-color: #EFEFEF;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+    #header h1 {
+        margin: 2em 0 0;
+        color: #666;
+    }
+
+#subtitle {
+    margin: 0 auto 1em;
+}
+
+#author {
+    margin: 0 auto 5em;
+}
+
+#body {
+    clear: left;
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+    #body h2, h3 {
+        width: 960px;
+        margin: 2em auto 1em;
+    }
+
+    #body h2 {
+        color: #444;
+    }
+
+    #body h3 {
+        color: #333;
+    }
+
+    #body p {
+        width: 960px;
+        margin: 1em auto;
+    }
+
+    #body p.emphasis {
+        text-align: center;
+        font-size: 1.5em;
+    }
+
+.game-of-life {
+    margin: 1em auto;
+    padding: 1em;
+}
+
+.game-of-life-control-panel button {
+    text-align: center;
+    margin: 0 0.5em 1em;
+    padding: 0.5em 1em;
+}
+
+.game-of-life div {
+    text-align: center;
+}
+
+#footer {
+    float: left;
+    width: 100%;
+    clear: left;
+    background-color: #666;
+    margin: 0;
+    padding 0;
+}
+
+    #footer h2 {
+        width: 960px;
+        margin: 2em auto 0;
+        color: #BBB;
+    }
+
+    #footer p {
+        width: 960px;
+        color: #CCC;
+        margin: 1em auto 5em;
+    }
+
+    #footer a:link, #footer a:active {
+        color: #00CCFF;
+    }
+
+    #footer a:visited {
+        color: #00AAFF;
+    }
+
+.y {
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+input[type="checkbox"] {
+    border: 0;
+    width: 2em;
+    height: 2em;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+}

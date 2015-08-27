@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>A Simulation of Life</title>
+    <link tyle="text/css" rel="stylesheet" href="game-of-life.css" />
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <h1>A Simulation of Life</h1>
+            <p id="subtitle">A quick explanation of a simulation game</p>
+            <p id="author">by <a href="http://coolsilon.com/">Jeffrey04</a></p>
+        </div>
+
+        <div id="body">
+            <h2>This is a story of how neighbours may determine one's lifelihood</h2>
+            <p>A game board of arbitrary size is always available. Each cell in the
+            game board has one of two available state, which is either live or die,
+            on or off, 1 or 0.</p>
+
+            <div id="intro"></div>
+
+            <p>Each time you press the button "Evolve", there will be a round of
+            evolution happening. Depending on the situation, there will be new cells
+            coming alive, existing cells dying, or possibly, nothing changes.</p>
+
+            <div id="evolution"></div>
+
+            <p>Each time you press "Evolve", the cells on the board are evaluated to
+            determine what the next phase is going to look like. You may wonder what
+            the rules are, but basically it involves observing the count of neighbours.
+            </p>
+
+            <p class="emphasis"><strong>"Having the right amount of neighbours, you live, otherwise, you
+            die."</strong></p>
+
+            <p>There are just 4 rules to be followed, let's go through them 1 by one</p>
+
+            <h3>Dying of loneliness</h3>
+
+            <p>If a living cell has only 1 or none living cell neighbours, it dies. For
+            example, the living cell in the middle has no neighbours, so it dies in
+            the next evolution.</p>
+
+            <div id="loneliness"></div>
+
+            <p>As you can see, the neighbours of a given cell is the 8 surrounding
+            cells (just like the little game where you clear mines).</p>
+
+            <h3>Dying of suffocation</h3>
+
+            <p>If a living cell is surrounded by more than 3 living cells, it dies.
+            Notice how quite a number of cells died due to over-population after one
+            evolution in the following example.<p>
+
+            <div id="suffocation"></div>
+
+            <h3>Optimum survival condition</h3>
+
+            <p>So the optimal number of neighbours, is 2 or 3 living cells. Everyone
+            has enough room to breathe, and not always surrounded by too many
+            neighbours.</p>
+
+            <div id="survive"></div>
+
+            <h3>New mate to the game</h3>
+
+            <p>So far we have only mentioned about the survivability of a living cell.
+            There is actually a rule to simulate reproduction. If a dead cell is
+            surrounded by 3 living neighbours, it comes alive.</p>
+
+            <div id="reproduction"></div>
+
+            <h3>Patterns</h3>
+
+            <p>There are several patterns discovered when people start playing the game.
+            For instance you have seen one in the example above, where there are no
+            changes happening regardless how many times you hit the evolve button.
+            It was an example of <strong>Still lifes</strong>.</p>
+
+            <p>Here is another pattern discovered by others. You can see the pattern
+            keeps repeating itself after a while. The following pattern is called
+            a blinker, which is an example of <strong>oscillators</strong>.</p>
+
+            <div id="blinker"></div>
+
+            <p>And not forgetting <strong>spaceships</strong>, for example this glider
+            below (press the Automate button to speed it up).</p>
+
+            <div id="glider"></div>
+
+            <h3>Game of Life</h3>
+
+            <p>This game is known as the Game of Life. It was created by John Horton
+            Conway and you may want to see
+            <a href="https://www.youtube.com/watch?v=R9Plq-D1gEk">this video</a> for
+            more interesting facts about the game.</p>
+
+            <p>Finally, you can have a play with the following sandbox. Hit the
+            randomize to generate a board with random living cells.</p>
+
+            <div id="sandbox"></div>
+
+            <script src="https://code.jquery.com/jquery-2.1.4.js" type="text/javascript"></script>
+            <script src="http://underscorejs.org/underscore.js" type="text/javascript"></script>
+            <script src="game-of-life.js" type="text/javascript"></script>
+            <script type="text/javascript">
+            (function($) {
+                $('#intro').game_of_life({
+                    width: 21,
+                    height: 7,
+                    prefix: 'intro-',
+                    init: [
+                        [1, 1],         [3, 1], [5, 1], [6, 1], [7, 1], [9, 1],                   [13, 1],                            [18, 1],
+                        [1, 2],         [3, 2], [5, 2],                 [9, 2],                   [13, 2],                   [17, 2],          [19, 2],
+                        [1, 3], [2, 3], [3, 3], [5, 3], [6, 3],         [9, 3],                   [13, 3],                   [17, 3],          [19, 3],
+                        [1, 4],         [3, 4], [5, 4],                 [9, 4],                   [13, 4],                   [17, 4],          [19, 4],
+                        [1, 5],         [3, 5], [5, 5], [6, 5], [7, 5], [9, 5], [10, 5], [11, 5], [13, 5], [14, 5], [15, 5],          [18, 5]
+                    ],
+                    evolve: false,
+                    reset: false,
+                    randomize: false,
+                    clear: false,
+                    automate: false});
+
+                $('#evolution').game_of_life({
+                    prefix: 'evo',
+                    width: 5,
+                    height: 5,
+                    init: [
+                        [2, 0],
+                        [1, 1], [3, 1],
+                        [0, 2], [4, 2],
+                        [1, 3], [3, 3],
+                        [2, 4]
+                    ],
+                    evolve: true,
+                    reset: true,
+                    randomize: false,
+                    clear: false,
+                    automate: false
+                });
+
+                $('#loneliness').game_of_life({
+                    prefix: 'loneliness',
+                    width: 3,
+                    height: 3,
+                    init: [[1, 1]],
+                    evolve: true,
+                    reset: true,
+                    randomize: false,
+                    clear: false,
+                    automate: false
+                });
+
+                $('#suffocation').game_of_life({
+                    prefix: 'suffocation',
+                    width: 3,
+                    height: 3,
+                    init: [
+                        [0, 0], [1, 0], [2, 0],
+                        [0, 1], [1, 1], [2, 1],
+                        [0, 2], [1, 2], [2, 2]],
+                    evolve: true,
+                    reset: true,
+                    randomize: false,
+                    clear: false,
+                    automate: false
+                });
+
+                $('#survive').game_of_life({
+                    prefix: 'survive',
+                    width: 4,
+                    height: 4,
+                    init: [
+                        [1, 1], [2, 1],
+                        [1, 2], [2, 2]],
+                    evolve: true,
+                    reset: true,
+                    randomize: false,
+                    clear: false,
+                    automate: false
+                });
+
+                $('#reproduction').game_of_life({
+                    prefix: 'reproduction',
+                    width: 3,
+                    height: 3,
+                    init: [[0, 0], [1, 0], [0, 1]],
+                    evolve: true,
+                    reset: true,
+                    randomize: false,
+                    clear: false,
+                    automate: false
+                });
+
+                $('#blinker').game_of_life({
+                    prefix: 'blinker',
+                    width: 5,
+                    height: 5,
+                    init: [[1, 2], [2, 2], [3, 2]],
+                    evolve: true,
+                    reset: true,
+                    randomize: false,
+                    clear: false,
+                    automate: false
+                });
+
+                $('#glider').game_of_life({
+                    prefix: 'glider',
+                    width: 30,
+                    height: 10,
+                    init: [[1, 3], [2, 3], [3, 3], [3, 2], [2, 1]],
+                    evolve: true,
+                    reset: true,
+                    randomize: false,
+                    clear: false,
+                    automate: true
+                });
+
+                $('#sandbox').game_of_life({
+                    prefix: 'sandbox',
+                    width: 30,
+                    height: 30,
+                    evolve: true,
+                    reset: false,
+                    randomize: true,
+                    clear: true,
+                    automate: true,
+                    disabled: false
+                });
+            })(jQuery)
+            </script>
+        </div>
+
+        <div id="footer">
+            <h2>Thank you for playing</h2>
+            <p>This game is prepared as an assessment test for a job interview, I
+            hope you are somehow enjoying it. The presentation is pretty much
+            inspired by <a href="http://ncase.me/polygons/">this game</a> made by
+            <a href="http://vihart.com/">vi hart</a> and
+            <a href="http://www.patreon.com/ncase">nicky case</a>. The source
+            code is stored at github for your hacking pleasure, please fork this
+            game as you wish. The code is licensed under
+            <a href="https://en.wikipedia.org/wiki/WTFPL">WTFPL</a>.</p>
+        </div>
+    </div>
+</body>
+</html>
