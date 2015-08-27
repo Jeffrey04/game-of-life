@@ -14,69 +14,74 @@
 
         <div id="body">
             <h2>This is a story of how neighbours may determine one's lifelihood</h2>
-            <p>A game board of arbitrary size is always available. Each cell in the
-            game board has one of two available state, which is either live or die,
-            on or off, 1 or 0.</p>
+            <p>There exists this simple community, which can be represented by
+            a grid of check boxes. Assuming each of them represents a person,
+            and each of them can have anyone of the two states, which is either
+            living or dead (or yet-to-be-borned).</p>
 
             <div id="intro"></div>
 
-            <p>Each time you press the button "Evolve", there will be a round of
-            evolution happening. Depending on the situation, there will be new cells
-            coming alive, existing cells dying, or possibly, nothing changes.</p>
+            <p>Each person's lifelihood, is determined by how many neighbours
+            available. Neighbours are the people surrounding the person. Each
+            evolution may bring in new members to the community, take some of them
+            off, or nothing changes.</p>
 
             <div id="evolution"></div>
 
-            <p>Each time you press "Evolve", the cells on the board are evaluated to
-            determine what the next phase is going to look like. You may wonder what
-            the rules are, but basically it involves observing the count of neighbours.
+            <p>This community values neighbours, so the number of neighbours
+            directly determines whether a person is able to survive an evolution.
+            In short,
             </p>
 
-            <p class="emphasis"><strong>"Having the right amount of neighbours, you live, otherwise, you
-            die."</strong></p>
+            <p class="emphasis"><strong>"Having the right amount of neighbours, you
+            live, otherwise, you die."</strong></p>
 
-            <p>There are just 4 rules to be followed, let's go through them 1 by one</p>
+            <p>There are just 4 rules to be followed, let's go through them 1 by one
+            </p>
 
             <h3>Dying of loneliness</h3>
 
-            <p>If a living cell has only 1 or none living cell neighbours, it dies. For
-            example, the living cell in the middle has no neighbours, so it dies in
-            the next evolution.</p>
+            <p>We all know what it is like to be left alone, in this community
+            loneliness is so bad that it may cause one to not survive an evolution.
+            The person will be dead if there's only 1 or no one around him.</p>
 
             <div id="loneliness"></div>
 
-            <p>As you can see, the neighbours of a given cell is the 8 surrounding
-            cells (just like the little game where you clear mines).</p>
+            <p>Just in case you have not noticed, a person's neighbours are
+            the other 8 surrounding cells.</p>
 
             <h3>Dying of suffocation</h3>
 
-            <p>If a living cell is surrounded by more than 3 living cells, it dies.
-            Notice how quite a number of cells died due to over-population after one
-            evolution in the following example.<p>
+            <p>The opposite of loneliness is the feeling of suffocation. When
+            there are too many people around, we lose the personal space we need.
+            The same thing applies in this community, and if there are more than 3
+            people surrounding a person, then the person dies.<p>
 
             <div id="suffocation"></div>
 
             <h3>Optimum survival condition</h3>
 
-            <p>So the optimal number of neighbours, is 2 or 3 living cells. Everyone
-            has enough room to breathe, and not always surrounded by too many
-            neighbours.</p>
+            <p>Therefore the optimum number of neighbours, is 2 to 3 people.
+            Everyone has enough room to breathe, and not overwhelmed by too many
+            neighbours around. I would say this is a win-win situation.</p>
 
             <div id="survive"></div>
 
-            <h3>New mate to the game</h3>
+            <h3>Let's breed, shall we?</h3>
 
-            <p>So far we have only mentioned about the survivability of a living cell.
-            There is actually a rule to simulate reproduction. If a dead cell is
-            surrounded by 3 living neighbours, it comes alive.</p>
+            <p>A community keeps moving when there are changes to the structure,
+            especially when there's an addition of new members. A new member is
+            born, whenever there are exactly 3 living neighbours around.</p>
 
             <div id="reproduction"></div>
 
             <h3>Patterns</h3>
 
-            <p>There are several patterns discovered when people start playing the game.
-            For instance you have seen one in the example above, where there are no
-            changes happening regardless how many times you hit the evolve button.
-            It was an example of <strong>Still lifes</strong>.</p>
+            <p>There are several patterns discovered when people start playing with
+            the simulation. For instance you have seen one in the example above,
+            where there were no changes happening regardless how many times you hit
+            the evolve button.  It was an example of <strong>Still lifes</strong>.
+            </p>
 
             <p>Here is another pattern discovered by others. You can see the pattern
             keeps repeating itself after a while. The following pattern is called
@@ -84,8 +89,8 @@
 
             <div id="blinker"></div>
 
-            <p>And not forgetting <strong>spaceships</strong>, for example this glider
-            below (press the Automate button to speed it up).</p>
+            <p>And not forgetting <strong>spaceships</strong>, for example this
+            glider below (press the Automate button to speed it up).</p>
 
             <div id="glider"></div>
 
@@ -235,15 +240,15 @@
 
         <div id="footer">
             <h2>Thank you for playing</h2>
-            <p>This game is prepared as an assessment test for a job application, I
-            hope you are somehow enjoying it. The presentation is pretty much
+            <p>I prepared this as part of an assessment test for a job application,
+            I hope you are somehow enjoying it. The presentation is pretty much
             inspired by <a href="http://ncase.me/polygons/">this game</a> made by
             <a href="http://vihart.com/">vi hart</a> and
-            <a href="http://www.patreon.com/ncase">nicky case</a>. The source
-            code is stored at
-            <a href="https://github.com/Jeffrey04/game-of-life">github</a> for your
-            hacking pleasure, please fork this game as you wish. The code is
-            licensed under
+            <a href="http://www.patreon.com/ncase">nicky case</a> (though there are
+            much more visual/UX improvement I should be doing). The source code is
+            stored at <a href="https://github.com/Jeffrey04/game-of-life">github
+            </a> for your hacking pleasure, please fork this game as you wish. The
+            code is licensed under
             <a href="https://en.wikipedia.org/wiki/WTFPL">WTFPL</a>.</p>
         </div>
     </div>
