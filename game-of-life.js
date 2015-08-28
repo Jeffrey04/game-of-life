@@ -264,7 +264,8 @@ $.fn.game_of_life = function(options) {
             randomize: true,
             clear: true,
             automate: true,
-            disabled: true
+            disabled: true,
+            reset: false
         },
         options),
         item = this
