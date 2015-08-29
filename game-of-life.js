@@ -146,6 +146,7 @@ function evolve_check_die(neighbours_checked) {
 function evolve_get_builder(settings) {
     return function() {
         return control_builder(settings, 'Evolve', 'evolve')
+            .addClass('non-timer')
             .click(evolve_get_processor(settings))
     }
 }
@@ -153,6 +154,7 @@ function evolve_get_builder(settings) {
 function random_get_builder(settings) {
     return function() {
         return control_builder(settings, 'Randomize', 'random')
+            .addClass('non-timer')
             .click(function() {
                 $.each(
                     _.range(_.sample(_.range(5, settings.width * settings.height))),
@@ -167,6 +169,7 @@ function random_get_builder(settings) {
 function clear_get_builder(settings) {
     return function() {
         return control_builder(settings, 'Clear', 'clear')
+            .addClass('non-timer')
             .click(function() {
                 $('#' + settings.prefix + 'game-grid .x').prop('checked', false)
             })
@@ -181,6 +184,8 @@ function auto_get_builder(settings) {
                 var item = $(this)
 
                 if(item.data('interval') === false) {
+                    $('.non-timer').prop('disabled', true)
+
                     item.data('interval', 'foo')
                         .data(
                             'interval',
@@ -193,6 +198,8 @@ function auto_get_builder(settings) {
                                 250))
                         .text('Stop')
                 } else {
+                    $('.non-timer').prop('disabled', false)
+
                     clearInterval(item.data('interval'))
                     item.data('interval', false)
                         .text('Automatic')
@@ -204,6 +211,7 @@ function auto_get_builder(settings) {
 function reset_get_builder(settings) {
     return function() {
         return control_builder(settings, 'Reset', 'reset')
+            .addClass('non-timer')
             .click(function() {
                 $('#' + settings.prefix + 'game-grid .x').prop('checked', false)
 
