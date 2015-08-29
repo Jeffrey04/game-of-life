@@ -106,6 +106,9 @@ function evolve_get_processor(context, settings) {
 
 function item_check(item, status) {
     item.prop('checked', status)
+        .parent('label')
+        .removeClass('x-live x-dead')
+        .addClass(item.prop('checked') ? 'x-live' : 'x-dead')
 }
 
 function item_reduce_live(item, neighbours_checked) {
@@ -155,13 +158,18 @@ function random_get_builder(context, settings) {
         return control_builder(settings, 'Randomize', 'random')
             .addClass('non-timer')
             .click(function() {
-                $('.game-grid .x', context).prop('checked', false)
+                $('.game-grid .x', context)
+                    .prop('checked', false)
+                    .parent()
+                    .removeClass('x-live x-dead')
+                    .addClass('x-dead')
 
                 $.each(
                     _.range(_.sample(_.range(5, settings.width * settings.height))),
                     function() {
                         coordinates_to_item(context, coordinates_get_random(settings))
-                            .prop('checked', true)
+                            .parent('label')
+                            .click()
                     })
             })
     }
@@ -172,7 +180,11 @@ function clear_get_builder(context, settings) {
         return control_builder(settings, 'Clear', 'clear')
             .addClass('non-timer')
             .click(function() {
-                $('.game-grid .x', context).prop('checked', false)
+                $('.game-grid .x', context)
+                    .prop('checked', false)
+                    .parent('label')
+                    .removeClass('x-live x-dead')
+                    .addClass('x-dead')
             })
     }
 }
