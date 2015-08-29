@@ -6,6 +6,7 @@ body {
     padding: 0;
     margin: 0;
     color: #111;
+    background-color: #EFEFEF;
 }
 
 a:link, a:active {
@@ -25,7 +26,7 @@ a:visited {
 #header {
     float: left;
     width: 100%;
-    background-color: #EFEFEF;
+    background-color: #333;
     margin: 0;
     padding: 0;
     text-align: center;
@@ -33,7 +34,11 @@ a:visited {
 
     #header h1 {
         margin: 2em 0 0;
-        color: #666;
+        color: #EEE;
+    }
+
+    #header p {
+        color: #CCC
     }
 
 #subtitle {
