@@ -233,14 +233,32 @@ function control_builder(settings, caption, id) {
 
 function x_get_builder(settings) {
     return function(x_index, y_index) {
-        return $(document.createElement('input'))
-            .attr('type', 'checkbox')
-            .addClass('x')
-            .addClass('x' + x_index + 'y' + y_index)
-            .data('x', x_index)
-            .data('y', y_index)
-            .prop('checked', item_is_prechecked(x_index, y_index, settings))
-            .prop('disabled', settings.disabled)
+        return $(document.createElement('label'))
+            .append(
+                $(document.createElement('input'))
+                    .attr('type', 'checkbox')
+                    .addClass('x')
+                    .addClass('x' + x_index + 'y' + y_index)
+                    .data('x', x_index)
+                    .data('y', y_index)
+                    .prop('checked', item_is_prechecked(x_index, y_index, settings))
+                    .prop('disabled', settings.disabled))
+                    .change(function() {
+                        $(this).removeClass('x-live x-dead')
+                            .addClass($('input', this).prop('checked') ? 'x-live' : 'x-dead')
+                    })
+            .addClass(item_is_prechecked(x_index, y_index, settings) ? 'x-live' : 'x-dead')
+            .addClass('x-container')
+            .click(function() {
+                var item = $('input', this)
+
+                if(item.prop('disabled') === false) {
+                    item.prop('checked', item.prop('checked') != true)
+                        .change()
+                }
+
+                return false;
+            })
     }
 }
 

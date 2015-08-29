@@ -95,6 +95,27 @@ a:visited {
     text-align: center;
 }
 
+.game-of-life .x {
+    visibility: hidden;
+}
+
+.game-of-life .x-container {
+    display: inline-block;
+    margin: 1px;
+    height: 30px;
+    width: 30px;
+}
+
+.game-of-life .x-live {
+    background-image: url('happy-cat-face.png');
+    background-position: 0 0;
+    border: 1px solid transparent;
+}
+
+.game-of-life .x-dead {
+    border: 1px solid #DDD;
+}
+
 #footer {
     float: left;
     width: 100%;
@@ -128,13 +149,4 @@ a:visited {
     line-height: 0;
     margin: 0;
     padding: 0;
-}
-
-input[type="checkbox"] {
-    border: 0;
-    width: 2em;
-    height: 2em;
-    margin: 0;
-    padding: 0;
-    line-height: 0;
 }
