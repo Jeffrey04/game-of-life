@@ -226,12 +226,16 @@ function reset_get_builder(context, settings) {
         return control_builder(settings, 'Reset', 'reset')
             .addClass('non-timer')
             .click(function() {
-                $('.game-grid .x', context).prop('checked', false)
+                $('.game-grid .x', context)
+                    .prop('checked', false)
+                    .parent('label')
+                    .removeClass('x-live x-dead')
+                    .addClass('x-dead')
 
                 $.each(
                     settings.init,
                     function() {
-                        coordinates_to_item(context, this).prop('checked', true)
+                        item_check(coordinates_to_item(context, this), true)
                     })
             })
     }
