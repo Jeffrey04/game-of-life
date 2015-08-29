@@ -155,6 +155,8 @@ function random_get_builder(context, settings) {
         return control_builder(settings, 'Randomize', 'random')
             .addClass('non-timer')
             .click(function() {
+                $('.game-grid .x', context).prop('checked', false)
+
                 $.each(
                     _.range(_.sample(_.range(5, settings.width * settings.height))),
                     function() {
