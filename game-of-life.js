@@ -1,15 +1,15 @@
 (function($) {
 
-function checked_get_list(settings, output_to_coordinate) {
-    return _.map($('#' + settings.prefix + 'game-grid .x:checked'), function(item) {
+function checked_get_list(context, output_to_coordinate) {
+    return _.map($('.x:checked', context), function(item) {
         return output_to_coordinate ?
             item_to_coordinates($(item))
             : $(item)
     })
 }
 
-function coordinates_to_item(settings, coordinates) {
-    return $('#' + settings.prefix + 'x' + coordinates[0] + 'y' + coordinates[1])
+function coordinates_to_item(context, coordinates) {
+    return $('.x' + coordinates[0] + 'y' + coordinates[1], context)
 }
 
 function item_to_coordinates(item) {
@@ -29,9 +29,9 @@ function coordinates_get_random(settings) {
         _.sample(_.range(settings.height))]
 }
 
-function board_build(settings, x_builder, y_builder) {
+function board_build(context, settings, x_builder, y_builder) {
     return $(document.createElement('div'))
-        .attr('id', settings.prefix + 'game-grid')
+        .addClass('game-grid')
         .append(
             _.map(_.range(settings.height),
             function(y_index) {
@@ -46,14 +46,13 @@ function board_build(settings, x_builder, y_builder) {
 
 function control_build(settings, builders) {
     return $(document.createElement('div'))
-        .attr('id', settings.prefix + 'control-panel')
         .addClass('game-of-life-control-panel')
         .append(_.map(builders, function(builder) {
             return builder()
         }))
 }
 
-function neighbours_get_all(settings, coordinates) {
+function neighbours_get_all(context, settings, coordinates) {
     return _.groupBy(
         _.filter(
                 neighbours_get_candidates(coordinates),
@@ -64,7 +63,7 @@ function neighbours_get_all(settings, coordinates) {
                         && coordinates[1] < settings.height
                 }),
         function(item) {
-            return coordinates_to_item(settings, item).prop('checked')
+            return coordinates_to_item(context, item).prop('checked')
         })
 }
 
@@ -81,18 +80,18 @@ function neighbours_get_candidates(coordinates) {
             [coordinates[0] + 1, coordinates[1] + 1]]
 }
 
-function evolve_get_processor(settings) {
+function evolve_get_processor(context, settings) {
     return function() {
         var changes = _.reduce(
-                checked_get_list(settings, true),
+                checked_get_list(context, true),
                 function(result, incoming) {
-                    var neighbours = neighbours_get_all(settings, incoming)
+                    var neighbours = neighbours_get_all(context, settings, incoming)
 
                     return _.map(
                         _.zip(
                             result,
                             item_reduce_live(incoming, neighbours[true]),
-                            neighbours_reduce_die(neighbours[false], settings)
+                            neighbours_reduce_die(context, neighbours[false], settings)
                         ),
                         function(item) {
                             return _.union.apply(_, item)
@@ -100,8 +99,8 @@ function evolve_get_processor(settings) {
                 },
                 [[], []])
 
-        $.each(changes[0], function() { item_check(coordinates_to_item(settings, this), false) })
-        $.each(changes[1], function() { item_check(coordinates_to_item(settings, this), true) })
+        $.each(changes[0], function() { item_check(coordinates_to_item(context, this), false) })
+        $.each(changes[1], function() { item_check(coordinates_to_item(context, this), true) })
     }
 }
 
@@ -115,11 +114,11 @@ function item_reduce_live(item, neighbours_checked) {
         : [[item], []]
 }
 
-function neighbours_reduce_die(neighbours_unchecked, settings) {
+function neighbours_reduce_die(context, neighbours_unchecked, settings) {
     return [[], _.filter(
         neighbours_unchecked,
         function(item) {
-            var neighbours = neighbours_get_all(settings, item)
+            var neighbours = neighbours_get_all(context, settings, item)
 
             return evolve_check_die(neighbours[true])
         })]
@@ -143,15 +142,15 @@ function evolve_check_die(neighbours_checked) {
         : neighbours_checked.length == 3
 }
 
-function evolve_get_builder(settings) {
+function evolve_get_builder(context, settings) {
     return function() {
         return control_builder(settings, 'Evolve', 'evolve')
             .addClass('non-timer')
-            .click(evolve_get_processor(settings))
+            .click(evolve_get_processor(context, settings))
     }
 }
 
-function random_get_builder(settings) {
+function random_get_builder(context, settings) {
     return function() {
         return control_builder(settings, 'Randomize', 'random')
             .addClass('non-timer')
@@ -159,24 +158,24 @@ function random_get_builder(settings) {
                 $.each(
                     _.range(_.sample(_.range(5, settings.width * settings.height))),
                     function() {
-                        coordinates_to_item(settings, coordinates_get_random(settings))
+                        coordinates_to_item(context, coordinates_get_random(settings))
                             .prop('checked', true)
                     })
             })
     }
 }
 
-function clear_get_builder(settings) {
+function clear_get_builder(context, settings) {
     return function() {
         return control_builder(settings, 'Clear', 'clear')
             .addClass('non-timer')
             .click(function() {
-                $('#' + settings.prefix + 'game-grid .x').prop('checked', false)
+                $('.game-grid .x', context).prop('checked', false)
             })
     }
 }
 
-function auto_get_builder(settings) {
+function auto_get_builder(context, settings) {
     return function() {
         return control_builder(settings, 'Automatic', 'auto')
             .data('interval', false)
@@ -184,21 +183,21 @@ function auto_get_builder(settings) {
                 var item = $(this)
 
                 if(item.data('interval') === false) {
-                    $('.non-timer').prop('disabled', true)
+                    $('.non-timer', context).prop('disabled', true)
 
                     item.data('interval', 'foo')
                         .data(
                             'interval',
                             setInterval(
                                 function() {
-                                    var action = evolve_get_processor(settings)
+                                    var action = evolve_get_processor(context, settings)
 
                                     action()
                                 },
                                 250))
                         .text('Stop')
                 } else {
-                    $('.non-timer').prop('disabled', false)
+                    $('.non-timer', context).prop('disabled', false)
 
                     clearInterval(item.data('interval'))
                     item.data('interval', false)
@@ -208,18 +207,17 @@ function auto_get_builder(settings) {
     }
 }
 
-function reset_get_builder(settings) {
+function reset_get_builder(context, settings) {
     return function() {
         return control_builder(settings, 'Reset', 'reset')
             .addClass('non-timer')
             .click(function() {
-                $('#' + settings.prefix + 'game-grid .x').prop('checked', false)
+                $('.game-grid .x', context).prop('checked', false)
 
                 $.each(
                     settings.init,
                     function() {
-                        console.log(this)
-                        coordinates_to_item(settings, this).prop('checked', true)
+                        coordinates_to_item(context, this).prop('checked', true)
                     })
             })
     }
@@ -227,7 +225,7 @@ function reset_get_builder(settings) {
 
 function control_builder(settings, caption, id) {
     return $(document.createElement('button'))
-        .attr('id', settings.prefix + id)
+        .addClass(id)
         .text(caption)
 }
 
@@ -236,7 +234,7 @@ function x_get_builder(settings) {
         return $(document.createElement('input'))
             .attr('type', 'checkbox')
             .addClass('x')
-            .attr('id', settings.prefix + 'x' + x_index + 'y' + y_index)
+            .addClass('x' + x_index + 'y' + y_index)
             .data('x', x_index)
             .data('y', y_index)
             .prop('checked', item_is_prechecked(x_index, y_index, settings))
@@ -248,25 +246,24 @@ function y_get_builder(settings) {
     return function(index) {
         return $(document.createElement('div'))
                 .addClass('y')
-                .attr('id', settings.prefix + 'y' + index)
+                .addClass('y' + index)
                 .data('y', index)
     }
 }
 
-function control_get_builder(settings) {
+function control_get_builder(context, settings) {
     return [].concat(
-        settings.evolve ? [evolve_get_builder(settings)] : [],
-        settings.reset ? [reset_get_builder(settings)] : [],
-        settings.randomize ? [random_get_builder(settings)] : [],
-        settings.clear ? [clear_get_builder(settings)] : [],
-        settings.automate ? [auto_get_builder(settings)] : [])
+        settings.evolve ? [evolve_get_builder(context, settings)] : [],
+        settings.reset ? [reset_get_builder(context, settings)] : [],
+        settings.randomize ? [random_get_builder(context, settings)] : [],
+        settings.clear ? [clear_get_builder(context, settings)] : [],
+        settings.automate ? [auto_get_builder(context, settings)] : [])
 }
 
 $.fn.game_of_life = function(options) {
     var settings = $.extend({
             width: 20,
             height: 20,
-            prefix: 'gol-',
             init: [],
             evolve: true,
             randomize: true,
@@ -281,8 +278,9 @@ $.fn.game_of_life = function(options) {
     item.addClass('game-of-life')
         .append(control_build(
             settings,
-            control_get_builder(settings)))
+            control_get_builder(this, settings)))
         .append(board_build(
+            this,
             settings,
             x_get_builder(settings),
             y_get_builder(settings)))
